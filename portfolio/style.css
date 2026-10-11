@@ -934,3 +934,19 @@ body.modal-open {
   }
 
 }
+
+/* ========================================
+   VIEW VISIBILITY FIX
+======================================== */
+
+[hidden] {
+  display: none !important;
+}
+
+.project-view:not([hidden]) {
+  display: block;
+}
+
+#portfolio-view:not([hidden]) {
+  display: block;
+}
