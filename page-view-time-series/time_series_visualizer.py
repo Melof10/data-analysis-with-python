@@ -1,61 +1,229 @@
-import matplotlib.pyplot as plt
 import pandas as pd
+import matplotlib.pyplot as plt
 import seaborn as sns
-from pandas.plotting import register_matplotlib_converters
-register_matplotlib_converters()
+from pathlib import Path
 
-# Import data (Make sure to parse dates. Consider setting index column to 'date'.)
-df = pd.read_csv('fcc-forum-pageviews.csv' , parse_dates=['date'] ).set_index('date')
 
-# Clean data
-df = df[(df['value'] >= df['value'].quantile(0.025)) | (df['value'] <= df['value'].quantile(0.975)) ]
+# ---------------------------------------------------------
+# 1. Load dataset
+# ---------------------------------------------------------
 
+BASE_DIR = Path(__file__).resolve().parent
+
+df = pd.read_csv(
+    BASE_DIR / "fcc-forum-pageviews.csv",
+    parse_dates=["date"],
+    index_col="date"
+)
+
+
+# ---------------------------------------------------------
+# 2. Clean dataset
+# ---------------------------------------------------------
+
+df = df[
+    (df["value"] >= df["value"].quantile(0.025))
+    & (df["value"] <= df["value"].quantile(0.975))
+].copy()
+
+
+# ---------------------------------------------------------
+# 3. Line plot
+# ---------------------------------------------------------
 
 def draw_line_plot():
-    # Draw line plot
-    fig,ax = plt.subplots(figsize=(18,6)) 
-    plt.plot(df.index , df['value'] , 'r', linewidth=1)
-    plt.title ('Daily freeCodeCamp Forum Page Views 5/2016-12/2019')
-    plt.xlabel('Date')
-    plt.ylabel('Page Views')
-    
+
+    df_line = df.copy()
+
+    fig, ax = plt.subplots(figsize=(15, 6))
+
+    ax.plot(
+        df_line.index,
+        df_line["value"],
+        color="red",
+        linewidth=1
+    )
+
+    ax.set_title(
+        "Daily freeCodeCamp Forum Page Views 5/2016-12/2019"
+    )
+
+    ax.set_xlabel("Date")
+    ax.set_ylabel("Page Views")
+
+    ax.grid(True, alpha=0.25)
+
+    fig.tight_layout()
+
+    fig.savefig(BASE_DIR / "line_plot.png")
+
     return fig
+
+
+# ---------------------------------------------------------
+# 4. Bar plot
+# ---------------------------------------------------------
 
 def draw_bar_plot():
-    # Copy and modify data for monthly bar plot
-    df['month']=df.index.month
-    df['year']=df.index.year
-    df_bar = df.groupby(['year','month']) ['value'].mean().unstack()
-    
-    # Draw bar plot
-    fig = df_bar.plot.bar(legend = True , figsize = (8,8) ,xlabel='Years' , ylabel=('Average Page Views'))
-    plt.legend(['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'Sepember', 'October', 'November', 'December'] , title = 'Months')
-    
+
+    df_bar = df.copy()
+
+    df_bar["year"] = df_bar.index.year
+    df_bar["month"] = df_bar.index.month
+
+    monthly_average = (
+        df_bar
+        .groupby(["year", "month"])["value"]
+        .mean()
+        .unstack()
+    )
+
+    month_names = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ]
+
+    monthly_average = monthly_average.reindex(
+        columns=range(1, 13)
+    )
+
+    monthly_average.columns = month_names
+
+    fig, ax = plt.subplots(figsize=(12, 8))
+
+    monthly_average.plot(
+        kind="bar",
+        ax=ax,
+        width=0.8
+    )
+
+    ax.set_xlabel("Years")
+    ax.set_ylabel("Average Page Views")
+
+    ax.legend(
+        title="Months",
+        loc="upper left"
+    )
+
+    ax.tick_params(axis="x", rotation=0)
+
+    ax.grid(axis="y", alpha=0.2)
+
+    fig.tight_layout()
+
+    fig.savefig(BASE_DIR / "bar_plot.png")
+
     return fig
+
+
+# ---------------------------------------------------------
+# 5. Box plots
+# ---------------------------------------------------------
 
 def draw_box_plot():
-    # Prepare data for box plots (this part is done!)
+
     df_box = df.copy()
-    df_box.reset_index(inplace=True)
-    df_box['year'] = [d.year for d in df_box.date]
-    df_box['month'] = [d.strftime('%b') for d in df_box.date]
 
-    # Draw box plots (using Seaborn)
-    fig ,axs=plt.subplots(1,2,figsize=(12,6))
-    axs[0] =sns.boxplot(x=df_box['year'],y=df_box['value'],ax=axs[0])
-    axs[1] =sns.boxplot(x=df_box['month'],y=df_box['value'],ax=axs[1] , order=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
+    df_box["year"] = df_box.index.year
+    df_box["month"] = df_box.index.month
 
-    axs[0].set_title ('Year-wise Box Plot (Trend)')
-    axs[0].set_xlabel('Year')
-    axs[0].set_ylabel('Page Views')
+    month_names = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+    ]
 
-     
-    axs[1].set_title ('Month-wise Box Plot (Seasonality)')
-    axs[1].set_xlabel('Month')
-    axs[1].set_ylabel('Page Views')
-   
+    df_box["month"] = pd.Categorical(
+        df_box["month"].map(
+            dict(enumerate(month_names, start=1))
+        ),
+        categories=month_names,
+        ordered=True
+    )
+
+    fig, axes = plt.subplots(
+        nrows=1,
+        ncols=2,
+        figsize=(16, 6)
+    )
+
+    sns.boxplot(
+        data=df_box,
+        x="year",
+        y="value",
+        ax=axes[0]
+    )
+
+    axes[0].set_title(
+        "Year-wise Box Plot (Trend)"
+    )
+
+    axes[0].set_xlabel("Year")
+    axes[0].set_ylabel("Page Views")
+
+    sns.boxplot(
+        data=df_box,
+        x="month",
+        y="value",
+        order=month_names,
+        ax=axes[1]
+    )
+
+    axes[1].set_title(
+        "Month-wise Box Plot (Seasonality)"
+    )
+
+    axes[1].set_xlabel("Month")
+    axes[1].set_ylabel("Page Views")
+
+    fig.tight_layout()
+
+    fig.savefig(BASE_DIR / "box_plot.png")
+
     return fig
 
-draw_line_plot()
-draw_bar_plot()
-draw_box_plot()
+
+# ---------------------------------------------------------
+# 6. Main execution
+# ---------------------------------------------------------
+
+if __name__ == "__main__":
+
+    print("\nPAGE VIEW TIME SERIES VISUALIZER")
+    print("=" * 60)
+
+    print("\nLoading freeCodeCamp forum dataset...")
+    print(f"Total records after cleaning: {len(df):,}")
+
+    print("\nGenerating line plot...")
+    draw_line_plot()
+    print("Line plot generated: line_plot.png")
+
+    print("\nGenerating bar plot...")
+    draw_bar_plot()
+    print("Bar plot generated: bar_plot.png")
+
+    print("\nGenerating box plots...")
+    draw_box_plot()
+    print("Box plots generated: box_plot.png")
+
+    print("\nAnalysis completed successfully.")
