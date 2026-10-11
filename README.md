@@ -1,492 +1,186 @@
-# Sea Level Predictor
-### Data Analysis with Python | Professional Practice Project
+# Data Analysis with Python
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?logo=pandas)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-Visualization-orange)
-![SciPy](https://img.shields.io/badge/SciPy-Statistical%20Analysis-8CAAE6?logo=scipy)
-![freeCodeCamp](https://img.shields.io/badge/freeCodeCamp-Data%20Analysis-0A0A23?logo=freecodecamp)
-![Academic Project](https://img.shields.io/badge/Teclab-Professional%20Practice-green)
+### Professional Practice | Data Science | Teclab
 
-## 1. Project Overview
+This repository contains five data analysis projects developed as part of the **Professional Practice course of the Higher Technical Degree in Data Science at Teclab**.
 
-**Sea Level Predictor** is a Python-based data analysis project developed as part of the **Professional Practice coursework (Práctica Profesionalizante)** of the **Higher Technical Degree in Data Science at Teclab**.
+The projects are based on the **Data Analysis with Python certification program by freeCodeCamp**, combining theoretical knowledge with practical applications of statistical analysis, data processing, and visualization.
 
-The project is based on the **Sea Level Predictor challenge** from the **Data Analysis with Python certification by freeCodeCamp**.
-
-Its main purpose is to analyze historical sea level measurements, identify long-term trends, and estimate future sea level changes through linear regression.
-
-The project combines data processing, statistical analysis, predictive modeling, and data visualization to demonstrate the practical application of Python in a real-world environmental dataset.
-
-### Academic Context
-
-| Institution | Teclab |
-|---|---|
-| Academic Program | Higher Technical Degree in Data Science |
-| Course | Professional Practice (Práctica Profesionalizante) |
-| Project | Sea Level Predictor |
-| Learning Platform | freeCodeCamp |
-| Certification Track | Data Analysis with Python |
-| Programming Language | Python |
+Each project addresses a different analytical problem using Python and its main data science libraries.
 
 ---
 
-## 2. Project Objectives
+## Technologies & Tools
 
-The primary objective is to analyze historical sea level data and generate predictions through 2050.
-
-Specific objectives include:
-
-- Importing and processing structured datasets using Pandas.
-- Exploring historical sea level measurements.
-- Visualizing historical observations through scatter plots.
-- Applying linear regression to identify long-term trends.
-- Comparing predictions generated from different historical periods.
-- Estimating sea level changes through 2050.
-- Producing reproducible data visualizations.
-- Validating the implementation through automated unit tests.
+| Technology | Purpose |
+|------------|---------|
+| Python | Data processing and analysis |
+| NumPy | Numerical and statistical calculations |
+| Pandas | Data manipulation and transformation |
+| Matplotlib | Data visualization |
+| Seaborn | Statistical visualization |
+| SciPy | Statistical modeling and linear regression |
+| Git & GitHub | Version control and project management |
 
 ---
 
-## 3. Dataset
+## Projects
 
-The project uses the `epa-sea-level.csv` dataset provided as part of the freeCodeCamp Sea Level Predictor exercise.
+### 1. Mean-Variance-Standard Deviation Calculator
 
-The dataset contains historical measurements of global mean sea level changes beginning in 1880.
+**Objective:** Apply fundamental statistical operations to a numerical dataset.
 
-### Main Variables
+This project uses NumPy to transform a list of nine numbers into a 3×3 matrix and calculate descriptive statistics across rows, columns, and the entire matrix.
 
-| Variable | Description |
-|---|---|
-| Year | Year of observation |
-| CSIRO Adjusted Sea Level | Adjusted sea level measurement in inches |
-| Lower Error Bound | Lower uncertainty estimate |
-| Upper Error Bound | Upper uncertainty estimate |
-| NOAA Adjusted Sea Level | Additional adjusted sea level measurements |
+**Key concepts:**
+- Multidimensional arrays
+- Mean, variance, and standard deviation
+- Minimum, maximum, and sum
+- Matrix operations and data validation
 
-The analysis primarily uses the following variables:
+**Result:**
 
-- **Independent variable (X):** Year
-- **Dependent variable (Y):** CSIRO Adjusted Sea Level
-
-These variables are used to estimate the relationship between time and sea level changes.
+![Mean Variance Calculator](mean-variance-calculator/mean_var_std.png)
 
 ---
 
-## 4. Technologies and Libraries
+### 2. Demographic Data Analyzer
 
-The project was developed using Python and the following libraries.
+**Objective:** Explore demographic characteristics and identify patterns related to education, occupation, and income.
 
-### Python
+Using a dataset derived from the U.S. Census, this project applies Pandas to analyze demographic distributions and relationships between socioeconomic variables.
 
-The primary programming language used for data processing, statistical analysis, and visualization.
+**Key concepts:**
+- Exploratory Data Analysis (EDA)
+- Data filtering and aggregation
+- Demographic and income analysis
+- Statistical comparisons between population groups
 
-### Pandas
+**Result:**
 
-Used to import the CSV dataset, manipulate tabular data, and filter observations.
-
-```python
-import pandas as pd
-
-df = pd.read_csv("epa-sea-level.csv")
-```
-
-### Matplotlib
-
-Used to generate scatter plots, regression lines, and the final visualization.
-
-```python
-import matplotlib.pyplot as plt
-
-plt.scatter(
-    df["Year"],
-    df["CSIRO Adjusted Sea Level"]
-)
-```
-
-### SciPy
-
-Used to calculate linear regression models through `scipy.stats.linregress`.
-
-```python
-from scipy.stats import linregress
-
-regression = linregress(
-    df["Year"],
-    df["CSIRO Adjusted Sea Level"]
-)
-```
+![Demographic Data Analysis](demographic-data-analyzer/demographic_data_analyzer.png)
 
 ---
 
-## 5. Methodology
+### 3. Medical Data Visualizer
 
-The project follows a structured data analysis workflow.
+**Objective:** Analyze medical examination records to explore relationships between cardiovascular conditions and health indicators.
 
-### Step 1: Data Collection
+The project includes data preprocessing, BMI calculations, normalization of medical indicators, and correlation analysis.
 
-Historical sea level measurements are imported from the CSV dataset.
+**Key concepts:**
+- Data cleaning and preprocessing
+- Body Mass Index (BMI)
+- Categorical data visualization
+- Correlation matrices and heatmaps
 
-### Step 2: Data Processing
+**Categorical Plot**
 
-Pandas is used to organize the dataset and select the variables required for statistical analysis.
+![Medical Categorical Plot](medical-data-visualizer/catplot.png)
 
-### Step 3: Exploratory Data Visualization
+**Correlation Heatmap**
 
-A scatter plot is generated to visualize the relationship between observation year and sea level.
-
-### Step 4: Historical Linear Regression
-
-A linear regression model is calculated using the historical observations beginning in 1880.
-
-The resulting regression line is extended through 2050.
-
-### Step 5: Recent Linear Regression
-
-A second regression model is calculated using observations from the year 2000 onward.
-
-This model is also extended through 2050.
-
-### Step 6: Comparative Analysis
-
-Both regression lines are displayed alongside the historical measurements.
-
-This comparison highlights how predictions may differ depending on the historical period selected for modeling.
+![Medical Correlation Heatmap](medical-data-visualizer/heatmap.png)
 
 ---
 
-## 6. Statistical Model
+### 4. Page View Time Series Visualizer
 
-The project uses simple linear regression.
+**Objective:** Analyze website traffic trends and seasonal patterns using historical time series data.
 
-The model is represented by:
+This project examines daily page views from the freeCodeCamp forum between May 2016 and December 2019.
 
-$begin:math:display$
-\\hat\{y\} \= mx \+ b
-$end:math:display$
+The analysis includes outlier removal, monthly averages, and comparisons of page view distributions across different periods.
 
-Where:
+**Key concepts:**
+- Time series analysis
+- Outlier detection using percentiles
+- Monthly and yearly aggregations
+- Trend and seasonality analysis
 
-- **x:** Observation year
-- **ŷ:** Predicted sea level
-- **m:** Regression slope
-- **b:** Regression intercept
+**Daily Page Views**
 
-The regression parameters are calculated using SciPy:
+![Page Views Line Plot](page-view-time-series/line_plot.png)
 
-```python
-regression = linregress(
-    df["Year"],
-    df["CSIRO Adjusted Sea Level"]
-)
-```
+**Monthly Average Page Views**
 
-Predictions are then generated using:
+![Page Views Bar Plot](page-view-time-series/bar_plot.png)
 
-```python
-predicted_levels = [
-    regression.slope * year + regression.intercept
-    for year in range(1880, 2051)
-]
-```
+**Yearly and Monthly Distributions**
 
-### Model Comparison
-
-Two models are evaluated:
-
-| Model | Training Period | Prediction Horizon |
-|---|---|---|
-| Historical Regression | 1880 onward | 2050 |
-| Recent Regression | 2000 onward | 2050 |
-
-The models provide different projections because they are fitted using different historical periods.
+![Page Views Box Plot](page-view-time-series/box_plot.png)
 
 ---
 
-## 7. Data Visualization
+### 5. Sea Level Predictor
 
-The following chart was generated using Matplotlib.
+**Objective:** Analyze historical sea level measurements and estimate future changes using statistical modeling.
 
-### Global Sea Level Rise and Predictions Through 2050
+The project applies linear regression to historical sea level data, comparing long-term trends with more recent observations to project sea level changes through 2050.
 
-![Sea Level Prediction](sea_level_plot.png)
+**Key concepts:**
+- Linear regression
+- Historical data analysis
+- Trend estimation
+- Predictive modeling and visualization
 
-### Chart Interpretation
+**Result:**
 
-The visualization includes three main components.
-
-**Historical Observations (Blue Points)**
-
-Represent the measured sea level changes over time.
-
-**Historical Regression (Red Line)**
-
-Represents the long-term linear trend calculated using observations beginning in 1880.
-
-**Recent Regression (Green Line)**
-
-Represents the trend calculated using observations from 2000 onward.
-
-### Key Findings
-
-The analysis indicates that:
-
-1. Historical sea level measurements exhibit an increasing trend.
-2. Both regression models predict continued sea level rise through 2050.
-3. The regression model based on recent observations produces a steeper trend.
-4. Predictions are sensitive to the historical period used for model estimation.
-
-These findings illustrate the importance of selecting appropriate historical data when developing predictive models.
-
-**Important:** These projections are statistical extrapolations and should not be interpreted as comprehensive climate model forecasts.
+![Sea Level Prediction](sea-level-predictor/sea_level_plot.png)
 
 ---
 
-## 8. Project Structure
+## Project Structure
 
 ```text
-sea-level-predictor/
+data-analysis-with-python/
 │
-├── sea_level_predictor.py
-├── epa-sea-level.csv
-├── sea_level_plot.png
-├── test_module.py
-├── README.md
-└── .gitignore
+├── mean-variance-calculator/
+├── demographic-data-analyzer/
+├── medical-data-visualizer/
+├── page-view-time-series/
+├── sea-level-predictor/
+│
+├── .gitignore
+└── README.md
 ```
 
-### File Descriptions
+Each project directory contains its Python implementation, the corresponding dataset when required, unit tests, and generated visualizations.
 
-| File | Description |
+---
+
+## Learning Outcomes
+
+Through these projects, the following technical competencies were applied and reinforced:
+
+- Data manipulation and transformation using Python.
+- Exploratory and descriptive statistical analysis.
+- Data cleaning and outlier detection.
+- Numerical operations with multidimensional arrays.
+- Data visualization and interpretation.
+- Time series analysis and predictive modeling.
+- Code validation through automated unit testing.
+
+These competencies represent fundamental skills for working with real-world datasets and developing data-driven solutions.
+
+---
+
+## Academic Context
+
+| | |
 |---|---|
-| `sea_level_predictor.py` | Main Python implementation |
-| `epa-sea-level.csv` | Historical sea level dataset |
-| `sea_level_plot.png` | Generated visualization |
-| `test_module.py` | Automated tests provided by freeCodeCamp |
-| `README.md` | Project documentation |
-| `.gitignore` | Git exclusions for local and temporary files |
+| **Institution** | Teclab |
+| **Degree** | Higher Technical Degree in Data Science |
+| **Course** | Professional Practice |
+| **Learning Platform** | freeCodeCamp |
+| **Certification Program** | Data Analysis with Python |
+| **Projects Completed** | 5 |
+
+The projects were developed for academic and educational purposes, applying the concepts covered in the freeCodeCamp curriculum within the framework of Teclab's Professional Practice course.
 
 ---
 
-## 9. Installation and Setup
+## References
 
-### Prerequisites
-
-- Python 3.10 or newer
-- pip
-- Git
-- A terminal or Python-compatible IDE
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/Melof10/sea-level-predictor.git
-```
-
-Navigate to the project directory:
-
-```bash
-cd sea-level-predictor
-```
-
-### Create a Virtual Environment
-
-```bash
-python3 -m venv .venv
-```
-
-Activate the environment.
-
-**macOS / Linux:**
-
-```bash
-source .venv/bin/activate
-```
-
-**Windows:**
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-### Install Dependencies
-
-```bash
-python -m pip install pandas matplotlib scipy
-```
-
----
-
-## 10. Running the Project
-
-Execute the main Python script:
-
-```bash
-python sea_level_predictor.py
-```
-
-Expected console output:
-
-```text
-Iniciando análisis del nivel del mar...
-Análisis completado correctamente.
-Gráfico generado: sea_level_plot.png
-```
-
-The script generates the following file:
-
-```text
-sea_level_plot.png
-```
-
-This image contains the historical observations and both regression-based projections through 2050.
-
----
-
-## 11. Automated Testing
-
-The project includes automated unit tests provided by freeCodeCamp.
-
-These tests verify that the implementation satisfies the requirements of the Sea Level Predictor challenge.
-
-### Running the Tests
-
-Execute:
-
-```bash
-python -m unittest test_module.py
-```
-
-### Successful Test Execution
-
-The implementation was validated in GitHub Codespaces, where all four automated tests passed.
-
-Example of a successful execution:
-
-```text
-....
-----------------------------------------------------------------------
-Ran 4 tests in 0.657s
-
-OK
-```
-
-The execution time may vary depending on the environment.
-
-### Validation Summary
-
-| Validation | Result |
-|---|---|
-| Historical data visualization | Passed |
-| Regression line using historical data | Passed |
-| Regression line using data from 2000 onward | Passed |
-| Chart labels and title | Passed |
-| Automated tests | 4/4 Passed |
-
----
-
-## 12. Learning Outcomes
-
-Through this project, the following technical skills were practiced:
-
-### Data Analysis
-
-- Reading structured datasets.
-- Selecting relevant variables.
-- Filtering historical observations.
-- Understanding relationships between numerical variables.
-
-### Statistical Analysis
-
-- Simple linear regression.
-- Regression slope and intercept.
-- Trend identification.
-- Statistical extrapolation.
-
-### Data Visualization
-
-- Scatter plots.
-- Regression line visualization.
-- Axis labeling and chart formatting.
-- Interpretation of historical trends.
-
-### Software Development
-
-- Python project organization.
-- Dependency management.
-- Virtual environments.
-- Automated testing.
-- Version control using Git and GitHub.
-
----
-
-## 13. Academic and Professional Relevance
-
-This project contributes to the development of practical skills required in the Data Science field.
-
-As part of the **Professional Practice coursework at Teclab**, it provides an opportunity to apply theoretical concepts to a real dataset.
-
-The implementation demonstrates a complete analytical workflow, from importing historical observations to producing and interpreting statistical predictions.
-
-It also introduces fundamental concepts that support further study in:
-
-- Predictive analytics.
-- Machine learning.
-- Time series analysis.
-- Statistical modeling.
-- Data-driven decision-making.
-
----
-
-## 14. References
-
-### freeCodeCamp
-
-**Data Analysis with Python — Sea Level Predictor**
-
-https://www.freecodecamp.org/learn/data-analysis-with-python/
-
-Original project repository:
-
-https://github.com/freeCodeCamp/boilerplate-sea-level-predictor
-
-### Teclab
-
-**Higher Technical Degree in Data Science**
-
-https://www.teclab.edu.ar/
-
-### Python Documentation
-
-https://docs.python.org/3/
-
-### Pandas Documentation
-
-https://pandas.pydata.org/docs/
-
-### Matplotlib Documentation
-
-https://matplotlib.org/stable/
-
-### SciPy Documentation
-
-https://docs.scipy.org/doc/scipy/
-
----
-
-## 15. Acknowledgments
-
-This project was developed for educational purposes as part of the Professional Practice coursework in the Higher Technical Degree in Data Science at Teclab.
-
-The original project requirements, dataset, and automated testing framework were provided by freeCodeCamp through its Data Analysis with Python curriculum.
-
-The implementation was completed as an academic exercise to strengthen practical skills in Python programming, statistical analysis, and data visualization.
-
----
-
-**Academic Program:** Higher Technical Degree in Data Science  
-**Institution:** Teclab  
-**Course:** Professional Practice (Práctica Profesionalizante)  
-**Project:** Sea Level Predictor  
-**Learning Platform:** freeCodeCamp  
-**Language:** Python
+- [freeCodeCamp — Data Analysis with Python](https://www.freecodecamp.org/learn/data-analysis-with-python/)
+- [Teclab — Official Website](https://www.teclab.edu.ar/)
